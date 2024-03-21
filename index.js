@@ -21,6 +21,9 @@ if (!fs.existsSync(logsFolder)) {
     fs.mkdirSync(logsFolder);
 }
 
+// Establecer permisos en la carpeta de logs
+fs.chmodSync(logsFolder, '700');
+
 // Servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
