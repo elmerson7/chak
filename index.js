@@ -15,6 +15,7 @@ const today = new Date();
 const logsFolder = 'logs';
 const logFileName = `${today.getFullYear()}_${today.getMonth() + 1}_${today.getDate()}.txt`;
 
+app.use(express.static('public'));
 
 // Crear la carpeta de logs si no existe
 if (!fs.existsSync(logsFolder)) {
