@@ -60,17 +60,19 @@
                             {{ message.emisor }}
                         </div>
                         <div v-if="isImage(message)" class="message-image">
-                            <img :src="message.contenido || message.mensaje" alt="Imagen compartida">
+                            <img :src="message.contenido" alt="Imagen compartida">
                         </div>
-                        <div v-else class="message-text" v-html="message.mensaje || message.contenido"></div>
+                        <div v-else class="message-text">{{ message.contenido }}</div>
                         <div class="message-time">
                             {{ getMessageTime(message.created_at) }}
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Indicador de usuarios escribiendo -->
-                <div v-if="typingUsers.length > 0" class="typing-indicator">
+            <!-- Indicador de usuarios escribiendo (fuera del área de scroll) -->
+            <div v-if="typingUsers.length > 0" class="typing-indicator-container">
+                <div class="typing-indicator">
                     <span>{{ typingUsers.join(', ') }} {{ typingUsers.length === 1 ? 'está escribiendo' : 'están escribiendo' }}...</span>
                 </div>
             </div>

@@ -277,9 +277,18 @@ body {
     object-fit: contain;
 }
 
+/* Contenedor del indicador de escritura (fuera del scroll) */
+.typing-indicator-container {
+    padding: 0.5rem 1rem;
+    background: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
 /* Indicador de escritura */
 .typing-indicator {
-    padding: 0.5rem 1rem;
     font-size: 0.85rem;
     color: var(--text-light);
     font-style: italic;

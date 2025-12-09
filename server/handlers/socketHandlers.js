@@ -35,30 +35,9 @@ function obtenerHoraActual() {
  * @returns {Object} Mensaje formateado
  */
 function formatMessageForClient(messageData) {
-    const hora = obtenerHoraActual();
-    const contenidoEscapado = messageData.tipo === 'texto' 
-        ? escapeHtml(messageData.contenido)
-        : messageData.contenido;
-    
-    const mensajeFormateado = `
-        <div class="message-container">
-            <div class="row">
-                <div class="col-auto">
-                    <img src="${messageData.avatar_url}" class="avatar" width="50" alt="Avatar de ${messageData.alias}">
-                </div>
-                <div class="col">
-                    <span style="color:#000;font-weight:bold"><u>${escapeHtml(messageData.alias)}:</u></span>
-                    <div class="message-content" style="display:flex;justify-content: space-between;">
-                        <span class="smessage">${contenidoEscapado}</span>
-                        <span class="stime"><i>${hora}</i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
+    // Solo retornar los datos, Vue se encargará del formato
+    // Esto evita duplicar el alias que ya se muestra en el frontend
     return {
-        mensaje: mensajeFormateado,
         emisor: messageData.alias,
         tipo: messageData.tipo,
         contenido: messageData.contenido,
