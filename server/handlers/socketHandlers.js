@@ -79,16 +79,17 @@ export function setupSocketHandlers(io) {
         let currentUserId = null;
         
         // Enviar mensajes previos al cliente recién conectado
-        try {
-            const mensajesPrevios = MessageModel.getRecent(50);
-            const mensajesFormateados = mensajesPrevios.map(formatMessageForClient);
-            socket.emit('mensajesPrevios', mensajesFormateados);
-        } catch (error) {
-            logError('Error al cargar mensajes previos', error);
-        }
+        MessageModel.getRecent(50)
+            .then((mensajesPrevios) => {
+                const mensajesFormateados = mensajesPrevios.map(formatMessageForClient);
+                socket.emit('mensajesPrevios', mensajesFormateados);
+            })
+            .catch((error) => {
+                logError('Error al cargar mensajes previos', error);
+            });
         
         // Handler para establecer alias
-        socket.on('setAlias', (newAlias) => {
+        socket.on('setAlias', async (newAlias) => {
             try {
                 // Validar alias
                 const validation = validateAlias(newAlias);
@@ -101,11 +102,11 @@ export function setupSocketHandlers(io) {
                 const aliasSanitizado = sanitizeAlias(newAlias);
                 
                 // Crear o obtener usuario
-                currentUser = UserModel.createOrGet(aliasSanitizado);
+                currentUser = await UserModel.createOrGet(aliasSanitizado);
                 currentUserId = currentUser.id;
                 
                 // Crear sesión
-                MessageModel.createSession(currentUserId, socket.id);
+                await MessageModel.createSession(currentUserId, socket.id);
                 
                 // Inicializar rate limiting para este usuario
                 userMessageCounts.set(currentUserId, { messages: [] });
@@ -126,7 +127,7 @@ export function setupSocketHandlers(io) {
         });
         
         // Handler para mensajes de texto
-        socket.on('mensaje', (mensaje) => {
+        socket.on('mensaje', async (mensaje) => {
             try {
                 if (!currentUser || !currentUserId) {
                     socket.emit('error', { message: 'Debes establecer un alias primero' });
@@ -156,7 +157,7 @@ export function setupSocketHandlers(io) {
                 const mensajeSanitizado = sanitizeMessage(mensaje.trim());
                 
                 // Guardar en base de datos
-                const messageData = MessageModel.create(
+                const messageData = await MessageModel.create(
                     currentUserId,
                     mensajeSanitizado,
                     'texto'
@@ -187,7 +188,7 @@ export function setupSocketHandlers(io) {
         });
         
         // Handler para imágenes
-        socket.on('imagen', (imagenData) => {
+        socket.on('imagen', async (imagenData) => {
             try {
                 if (!currentUser || !currentUserId) {
                     socket.emit('error', { message: 'Debes establecer un alias primero' });
@@ -214,7 +215,7 @@ export function setupSocketHandlers(io) {
                 }
                 
                 // Guardar en base de datos
-                const messageData = MessageModel.create(
+                const messageData = await MessageModel.create(
                     currentUserId,
                     imagenData,
                     'imagen'
@@ -262,11 +263,13 @@ export function setupSocketHandlers(io) {
         });
         
         // Handler para desconexión
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async () => {
             try {
                 if (currentUserId) {
-                    MessageModel.closeSession(socket.id);
-                    UserModel.updateLastSeen(currentUserId);
+                    await Promise.all([
+                        MessageModel.closeSession(socket.id),
+                        UserModel.updateLastSeen(currentUserId)
+                    ]);
                     userMessageCounts.delete(currentUserId);
                     
                     logInfo('Usuario desconectado', {
@@ -281,4 +284,3 @@ export function setupSocketHandlers(io) {
         });
     });
 }
-
