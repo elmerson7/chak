@@ -37,168 +37,40 @@
     --message-style: bubbles;
 }
 
-/* TEMA 2: EDITOR DE DOCUMENTOS */
-.theme-documentos.mode-light {
-    --primary-color: #1A73E8;
-    --primary-dark: #1557B0;
-    --secondary-color: #34A853;
-    --bg-color: #FFFFFF;
-    --bg-dark: #F8F9FA;
-    --message-bg-own: #F1F3F4;
-    --message-bg-other: #FFFFFF;
-    --text-color: #202124;
-    --text-light: #5F6368;
-    --border-color: #DADCE0;
-    --shadow: 0 1px 2px rgba(60, 64, 67, 0.1);
-    --shadow-lg: 0 2px 4px rgba(60, 64, 67, 0.15);
-    --font-family: 'Georgia', 'Times New Roman', serif;
-    --message-style: document;
-}
-
-.theme-documentos.mode-dark {
-    --primary-color: #8AB4F8;
-    --primary-dark: #5F8BC8;
-    --secondary-color: #81C995;
-    --bg-color: #202124;
-    --bg-dark: #1A1A1A;
-    --message-bg-own: #2D2E30;
-    --message-bg-other: #202124;
-    --text-color: #E8EAED;
-    --text-light: #9AA0A6;
-    --border-color: #3C4043;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --font-family: 'Georgia', 'Times New Roman', serif;
-    --message-style: document;
-}
-
-/* TEMA 3: TERMINAL */
-.theme-terminal.mode-light {
-    --primary-color: #007ACC;
-    --primary-dark: #005A9E;
-    --secondary-color: #00A8FF;
-    --bg-color: #F5F5F5;
-    --bg-dark: #FFFFFF;
-    --message-bg-own: #E8F4F8;
-    --message-bg-other: #FFFFFF;
-    --text-color: #24292E;
-    --text-light: #586069;
-    --border-color: #E1E4E8;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.15);
-    --font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-    --message-style: terminal;
-    --terminal-prompt-color: #007ACC;
-    --terminal-text-color: #24292E;
-}
-
-.theme-terminal.mode-dark {
-    --primary-color: #00FF41;
-    --primary-dark: #00CC33;
-    --secondary-color: #00D9FF;
-    --bg-color: #1E1E1E;
-    --bg-dark: #0D1117;
-    --message-bg-own: #161B22;
-    --message-bg-other: #0D1117;
-    --text-color: #C9D1D9;
-    --text-light: #8B949E;
-    --border-color: #30363D;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.6);
-    --font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-    --message-style: terminal;
-    --terminal-prompt-color: #00FF41;
-    --terminal-text-color: #C9D1D9;
-}
-
-/* TEMA 4: CÓDIGO */
-.theme-codigo.mode-light {
-    --primary-color: #007ACC;
-    --primary-dark: #005A9E;
-    --secondary-color: #795E26;
-    --bg-color: #FFFFFF;
-    --bg-dark: #F3F3F3;
-    --message-bg-own: #F6F8FA;
-    --message-bg-other: #FFFFFF;
-    --text-color: #24292E;
-    --text-light: #6A737D;
-    --border-color: #E1E4E8;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
-    --message-style: code;
-    --code-keyword: #D73A49;
-    --code-string: #032F62;
-    --code-comment: #6A737D;
-}
-
-.theme-codigo.mode-dark {
-    --primary-color: #4EC9B0;
-    --primary-dark: #3BA689;
-    --secondary-color: #CE9178;
+/* TEMA 2: TERMINAL */
+.theme-terminal {
+    --primary-color: #2E7D32;
+    --primary-dark: #1B5E20;
+    --secondary-color: #388E3C;
     --bg-color: #1E1E1E;
     --bg-dark: #252526;
-    --message-bg-own: #252526;
+    --message-bg-own: #1E1E1E;
     --message-bg-other: #1E1E1E;
     --text-color: #D4D4D4;
     --text-light: #858585;
     --border-color: #3E3E42;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.6);
-    --font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
-    --message-style: code;
-    --code-keyword: #569CD6;
-    --code-string: #CE9178;
-    --code-comment: #6A9955;
+    --shadow: none;
+    --shadow-lg: none;
+    --font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+    --message-style: terminal;
+    --terminal-prompt-color: #4EC9B0;
+    --terminal-prompt-own: #569CD6;
+    --terminal-text-color: #D4D4D4;
+    --terminal-timestamp-color: #6A9955;
+    --terminal-user-color: #4EC9B0;
+    --terminal-own-color: #569CD6;
 }
 
-/* TEMA 5: DASHBOARD */
-.theme-dashboard.mode-light {
-    --primary-color: #4285F4;
-    --primary-dark: #1967D2;
-    --secondary-color: #34A853;
-    --bg-color: #FAFAFA;
-    --bg-dark: #F5F5F5;
-    --message-bg-own: #E8F0FE;
-    --message-bg-other: #FFFFFF;
-    --text-color: #202124;
-    --text-light: #5F6368;
-    --border-color: #DADCE0;
-    --shadow: 0 1px 2px rgba(60, 64, 67, 0.1);
-    --shadow-lg: 0 2px 4px rgba(60, 64, 67, 0.15);
-    --font-family: 'Roboto', 'Google Sans', sans-serif;
-    --message-style: dashboard;
-    --log-info: #4285F4;
-    --log-warning: #FBBC04;
-    --log-error: #EA4335;
-}
-
-.theme-dashboard.mode-dark {
-    --primary-color: #8AB4F8;
-    --primary-dark: #5F8BC8;
-    --secondary-color: #81C995;
-    --bg-color: #202124;
-    --bg-dark: #1A1A1A;
-    --message-bg-own: #2D2E30;
-    --message-bg-other: #202124;
-    --text-color: #E8EAED;
-    --text-light: #9AA0A6;
-    --border-color: #3C4043;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --font-family: 'Roboto', 'Google Sans', sans-serif;
-    --message-style: dashboard;
-    --log-info: #8AB4F8;
-    --log-warning: #FDD663;
-    --log-error: #F28B82;
-}
 
 /* Aplicar variables globales cuando se selecciona un tema */
-body.theme-actual,
-body.theme-documentos,
-body.theme-terminal,
-body.theme-codigo,
-body.theme-dashboard {
+body.theme-actual {
+    background: var(--bg-color) !important;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.theme-terminal {
     background: var(--bg-color) !important;
     color: var(--text-color);
     font-family: var(--font-family);
@@ -210,159 +82,152 @@ body:not([class*="theme-"]) {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Estilos específicos para mensajes tipo documento */
-.theme-documentos .message-wrapper {
-    max-width: 100% !important;
-    margin-bottom: 1rem;
-    align-self: flex-start !important;
-}
-
-.theme-documentos .message-bubble {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0.5rem 0;
-    border-left: 3px solid var(--primary-color);
-    padding-left: 1rem;
-    width: 100%;
-}
-
-.theme-documentos .message-own .message-bubble {
-    border-left-color: var(--secondary-color);
-    border-right: none;
-}
-
-.theme-documentos .message-sender {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: var(--primary-color);
-}
-
-.theme-documentos .message-text {
-    line-height: 1.8;
-    font-size: 1rem;
-}
-
 /* Estilos específicos para mensajes tipo terminal */
+.theme-terminal .chat-container {
+    background: var(--bg-color) !important;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.theme-terminal .chat-header {
+    background: var(--bg-dark) !important;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+}
+
+.theme-terminal .chat-header h5 {
+    font-family: var(--font-family);
+    font-weight: normal;
+    color: var(--terminal-prompt-color);
+}
+
+.theme-terminal .chat-header .status-connected {
+    color: var(--terminal-timestamp-color);
+}
+
+.theme-terminal .chat-messages {
+    background: var(--bg-color) !important;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
 .theme-terminal .message-wrapper {
     max-width: 100% !important;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     font-family: var(--font-family);
     align-self: flex-start !important;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.theme-terminal .message-avatar {
+    display: none !important;
 }
 
 .theme-terminal .message-bubble {
     background: transparent !important;
     box-shadow: none !important;
-    padding: 0.25rem 0;
-    font-family: var(--font-family);
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
     width: 100%;
-}
-
-.theme-terminal .message-sender::before {
-    content: '$ ';
-    color: var(--terminal-prompt-color);
-    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
 }
 
 .theme-terminal .message-sender {
-    color: var(--terminal-prompt-color);
-    font-weight: bold;
-    margin-bottom: 0.25rem;
+    display: none;
 }
 
 .theme-terminal .message-text {
     color: var(--terminal-text-color);
     font-family: var(--font-family);
     white-space: pre-wrap;
+    margin: 0;
+    padding: 0;
+    flex: 1;
 }
 
-.theme-terminal .message-own .message-sender::before {
-    content: '# ';
-    color: var(--secondary-color);
-}
-
-/* Estilos específicos para mensajes tipo código */
-.theme-codigo .message-wrapper {
-    max-width: 100% !important;
-    margin-bottom: 0.75rem;
-    align-self: flex-start !important;
-}
-
-.theme-codigo .message-bubble {
-    background: var(--bg-dark) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
+.theme-terminal .message-time {
+    color: var(--terminal-timestamp-color);
     font-family: var(--font-family);
-    overflow-x: auto;
-    width: 100%;
-}
-
-.theme-codigo .message-sender {
-    color: var(--code-keyword);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
-}
-
-.theme-codigo .message-text {
-    color: var(--text-color);
-    font-family: var(--font-family);
-    white-space: pre-wrap;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-/* Estilos específicos para mensajes tipo dashboard */
-.theme-dashboard .message-wrapper {
-    max-width: 100% !important;
-    margin-bottom: 0.5rem;
-    align-self: flex-start !important;
-}
-
-.theme-dashboard .message-bubble {
-    background: var(--message-bg-other) !important;
-    border-left: 4px solid var(--log-info);
-    border-radius: 0 4px 4px 0;
-    padding: 0.75rem 1rem;
-    box-shadow: var(--shadow);
-    width: 100%;
-}
-
-.theme-dashboard .message-own .message-bubble {
-    border-left-color: var(--log-warning);
-}
-
-.theme-dashboard .message-sender {
-    color: var(--log-info);
-    font-weight: 600;
     font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.25rem;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
 }
 
-.theme-dashboard .message-sender::before {
-    content: '[LOG] ';
-    color: var(--text-light);
-    font-size: 0.75rem;
+/* Estilo de prompt para terminal */
+.theme-terminal .message-wrapper::before {
+    content: attr(data-prompt);
+    color: var(--terminal-prompt-color);
+    font-weight: bold;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    font-family: var(--font-family);
 }
 
-.theme-dashboard .message-own .message-sender::before {
-    content: '[SENT] ';
-    color: var(--log-warning);
+.theme-terminal .message-own::before {
+    color: var(--terminal-prompt-own);
 }
 
-.theme-dashboard .message-text {
-    color: var(--text-color);
+.theme-terminal .message-other::before {
+    color: var(--terminal-prompt-color);
+}
+
+/* Input de terminal */
+.theme-terminal .chat-input-container {
+    background: var(--bg-dark) !important;
+    border-top: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+}
+
+.theme-terminal .form-control {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    font-family: var(--font-family);
     font-size: 0.9rem;
-    line-height: 1.5;
 }
 
-.theme-dashboard .message-time {
-    color: var(--text-light);
-    font-size: 0.7rem;
-    font-family: monospace;
+.theme-terminal .form-control:focus {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--terminal-prompt-color);
+    box-shadow: none;
+}
+
+.theme-terminal .btn-primary {
+    background: var(--terminal-prompt-color);
+    border-color: var(--terminal-prompt-color);
+    border-radius: 0;
+    font-family: var(--font-family);
+}
+
+.theme-terminal .btn-primary:hover {
+    background: var(--terminal-prompt-own);
+    border-color: var(--terminal-prompt-own);
+}
+
+.theme-terminal .typing-indicator-container {
+    background: var(--bg-color);
+    padding: 0.25rem 1rem;
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+    color: var(--terminal-timestamp-color);
+}
+
+.theme-terminal .online-indicator {
+    display: none !important;
 }
 
 /* Ajustes para modo oscuro en todos los temas */

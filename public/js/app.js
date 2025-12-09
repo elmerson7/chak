@@ -334,6 +334,10 @@ createApp({
         applyTheme() {
             if (window.themeManager) {
                 window.themeManager.setTheme(this.selectedTheme);
+                // Si es terminal, forzar modo oscuro (aunque no se use)
+                if (this.selectedTheme === 'terminal') {
+                    this.selectedMode = 'dark';
+                }
                 window.themeManager.setMode(this.selectedMode);
             }
             this.showConfigModal = false;

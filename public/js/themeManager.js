@@ -5,7 +5,7 @@
 
 class ThemeManager {
     constructor() {
-        this.themes = ['actual', 'documentos', 'terminal', 'codigo', 'dashboard'];
+        this.themes = ['actual', 'terminal'];
         this.modes = ['light', 'dark'];
         this.currentTheme = 'actual';
         this.currentMode = 'light';
@@ -21,7 +21,12 @@ class ThemeManager {
         const savedTheme = localStorage.getItem('chak_theme');
         const savedMode = localStorage.getItem('chak_mode');
         
-        if (savedTheme && this.themes.includes(savedTheme)) {
+        // Migrar temas eliminados a "actual"
+        const removedThemes = ['documentos', 'codigo', 'dashboard'];
+        if (removedThemes.includes(savedTheme)) {
+            this.currentTheme = 'actual';
+            localStorage.setItem('chak_theme', 'actual');
+        } else if (savedTheme && this.themes.includes(savedTheme)) {
             this.currentTheme = savedTheme;
         }
         
@@ -61,12 +66,16 @@ class ThemeManager {
      * @param {string} mode - 'light' o 'dark'
      */
     setMode(mode) {
-        if (!this.modes.includes(mode)) {
+        // El tema terminal solo tiene modo oscuro (no usa clases mode-light/mode-dark)
+        if (this.currentTheme === 'terminal') {
+            this.currentMode = 'dark';
+        } else if (!this.modes.includes(mode)) {
             console.error(`Modo "${mode}" no válido`);
             return;
+        } else {
+            this.currentMode = mode;
         }
         
-        this.currentMode = mode;
         this.applyTheme();
         this.savePreferences();
     }
@@ -87,7 +96,11 @@ class ThemeManager {
         
         // Aplicar clases actuales
         body.classList.add(`theme-${this.currentTheme}`);
-        body.classList.add(`mode-${this.currentMode}`);
+        
+        // El tema terminal no usa modo claro/oscuro (solo tiene un estilo)
+        if (this.currentTheme !== 'terminal') {
+            body.classList.add(`mode-${this.currentMode}`);
+        }
         
         // Disparar evento personalizado para notificar cambios
         window.dispatchEvent(new CustomEvent('themeChanged', {

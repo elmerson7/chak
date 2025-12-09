@@ -60,6 +60,7 @@
                     v-for="(message, index) in messages" 
                     :key="index"
                     :class="['message-wrapper', message.emisor === currentUser?.alias ? 'message-own' : 'message-other']"
+                    :data-prompt="message.emisor === currentUser?.alias ? '#' : '$'"
                 >
                     <div v-if="message.emisor !== currentUser?.alias" class="message-avatar">
                         <img :src="message.avatar_url || 'https://robohash.org/default.png'" alt="Avatar">
@@ -156,20 +157,7 @@
                                     Actual (WhatsApp)
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input 
-                                    class="form-check-input" 
-                                    type="radio" 
-                                    name="theme" 
-                                    id="theme-documentos" 
-                                    value="documentos"
-                                    v-model="selectedTheme"
-                                >
-                                <label class="form-check-label" for="theme-documentos">
-                                    Editor de Documentos
-                                </label>
-                            </div>
-                            <div class="form-check">
+                        <div class="form-check">
                                 <input 
                                     class="form-check-input" 
                                     type="radio" 
@@ -182,35 +170,9 @@
                                     Terminal
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input 
-                                    class="form-check-input" 
-                                    type="radio" 
-                                    name="theme" 
-                                    id="theme-codigo" 
-                                    value="codigo"
-                                    v-model="selectedTheme"
-                                >
-                                <label class="form-check-label" for="theme-codigo">
-                                    Código
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input 
-                                    class="form-check-input" 
-                                    type="radio" 
-                                    name="theme" 
-                                    id="theme-dashboard" 
-                                    value="dashboard"
-                                    v-model="selectedTheme"
-                                >
-                                <label class="form-check-label" for="theme-dashboard">
-                                    Dashboard
-                                </label>
-                            </div>
                         </div>
                         
-                        <div class="mb-3">
+                        <div v-if="selectedTheme !== 'terminal'" class="mb-3">
                             <label class="form-label fw-bold">Modo:</label>
                             <div class="form-check form-switch">
                                 <input 
@@ -225,6 +187,9 @@
                                     <span v-else>Modo Oscuro</span>
                                 </label>
                             </div>
+                        </div>
+                        <div v-if="selectedTheme === 'terminal'" class="mb-3">
+                            <small class="text-muted">El tema Terminal solo está disponible en modo oscuro.</small>
                         </div>
                     </div>
                     <div class="modal-footer">
