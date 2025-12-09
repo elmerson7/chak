@@ -60,6 +60,7 @@
                     v-for="(message, index) in messages" 
                     :key="index"
                     :class="['message-wrapper', message.emisor === currentUser?.alias ? 'message-own' : 'message-other']"
+                    :data-line-number="index + 1"
                 >
                     <div v-if="message.emisor !== currentUser?.alias" class="message-avatar">
                         <img :src="message.avatar_url || 'https://robohash.org/default.png'" alt="Avatar">
@@ -177,9 +178,22 @@
                                     Terminal
                                 </label>
                             </div>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-vscode" 
+                                    value="vscode"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-vscode">
+                                    VS Code
+                                </label>
+                            </div>
                         </div>
                         
-                        <div v-if="selectedTheme !== 'terminal'" class="mb-3">
+                        <div v-if="selectedTheme !== 'terminal' && selectedTheme !== 'vscode'" class="mb-3">
                             <label class="form-label fw-bold">Modo:</label>
                             <div class="form-check form-switch">
                                 <input 
@@ -195,8 +209,8 @@
                                 </label>
                             </div>
                         </div>
-                        <div v-if="selectedTheme === 'terminal'" class="mb-3">
-                            <small class="text-muted">El tema Terminal solo está disponible en modo oscuro.</small>
+                        <div v-if="selectedTheme === 'terminal' || selectedTheme === 'vscode'" class="mb-3">
+                            <small class="text-muted">Este tema solo está disponible en modo oscuro.</small>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -347,8 +347,8 @@ createApp({
         applyTheme() {
             if (window.themeManager) {
                 window.themeManager.setTheme(this.selectedTheme);
-                // Si es terminal, forzar modo oscuro (aunque no se use)
-                if (this.selectedTheme === 'terminal') {
+                // Si es terminal o vscode, forzar modo oscuro (aunque no se use)
+                if (this.selectedTheme === 'terminal' || this.selectedTheme === 'vscode') {
                     this.selectedMode = 'dark';
                 }
                 window.themeManager.setMode(this.selectedMode);

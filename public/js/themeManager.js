@@ -5,7 +5,7 @@
 
 class ThemeManager {
     constructor() {
-        this.themes = ['actual', 'terminal'];
+        this.themes = ['actual', 'terminal', 'vscode'];
         this.modes = ['light', 'dark'];
         this.currentTheme = 'actual';
         this.currentMode = 'light';
@@ -97,8 +97,8 @@ class ThemeManager {
         // Aplicar clases actuales
         body.classList.add(`theme-${this.currentTheme}`);
         
-        // El tema terminal no usa modo claro/oscuro (solo tiene un estilo)
-        if (this.currentTheme !== 'terminal') {
+        // Los temas terminal y vscode no usan modo claro/oscuro (solo tienen un estilo)
+        if (this.currentTheme !== 'terminal' && this.currentTheme !== 'vscode') {
             body.classList.add(`mode-${this.currentMode}`);
         }
         

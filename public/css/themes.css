@@ -61,6 +61,35 @@
     --terminal-own-color: #569CD6;
 }
 
+/* TEMA 3: VS CODE */
+.theme-vscode {
+    --primary-color: #007ACC;
+    --primary-dark: #005A9E;
+    --secondary-color: #4EC9B0;
+    --bg-color: #1E1E1E;
+    --bg-dark: #252526;
+    --bg-sidebar: #252526;
+    --bg-editor: #1E1E1E;
+    --message-bg-own: #264F78;
+    --message-bg-other: #2D2D30;
+    --text-color: #D4D4D4;
+    --text-light: #858585;
+    --text-muted: #6A9955;
+    --border-color: #3E3E42;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --message-style: vscode;
+    --vscode-keyword: #569CD6;
+    --vscode-string: #CE9178;
+    --vscode-comment: #6A9955;
+    --vscode-function: #DCDCAA;
+    --vscode-variable: #9CDCFE;
+    --vscode-number: #B5CEA8;
+    --vscode-tab-bg: #2D2D30;
+    --vscode-tab-active: #1E1E1E;
+    --vscode-status-bar: #007ACC;
+}
 
 /* Aplicar variables globales cuando se selecciona un tema */
 body.theme-actual {
@@ -71,6 +100,13 @@ body.theme-actual {
 }
 
 body.theme-terminal {
+    background: var(--bg-color) !important;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.theme-vscode {
     background: var(--bg-color) !important;
     color: var(--text-color);
     font-family: var(--font-family);
@@ -452,6 +488,316 @@ body:not([class*="theme-"]) {
 
 .theme-terminal .chat-messages::-webkit-scrollbar-thumb:hover {
     background: var(--terminal-prompt-color);
+}
+
+/* ============================================
+   TEMA VS CODE - Estilo Editor de Código
+   ============================================ */
+
+.theme-vscode body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.theme-vscode .chat-container {
+    background: var(--bg-editor) !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: row;
+    height: 100vh !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+/* Sidebar izquierdo simulado */
+.theme-vscode .chat-container::before {
+    content: '';
+    width: 250px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
+    display: block;
+}
+
+/* Área principal del editor */
+.theme-vscode .chat-messages {
+    flex: 1;
+    background: var(--bg-editor) !important;
+    padding: 0;
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Tabs de archivos simulados */
+.theme-vscode .chat-messages::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-vscode .chat-messages::after {
+    content: 'CHAT.tsx';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: 35px;
+    line-height: 35px;
+    color: var(--text-color);
+    font-size: 13px;
+    z-index: 11;
+    pointer-events: none;
+}
+
+/* Mensajes como líneas de código */
+.theme-vscode .message-wrapper {
+    max-width: 100% !important;
+    margin-bottom: 0;
+    font-family: var(--font-family);
+    align-self: flex-start !important;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    border: none;
+    background: transparent !important;
+}
+
+.theme-vscode .message-wrapper::before {
+    content: attr(data-line-number);
+    color: var(--text-muted);
+    font-size: 12px;
+    width: 50px;
+    text-align: right;
+    padding-right: 15px;
+    flex-shrink: 0;
+    user-select: none;
+    font-family: var(--font-family);
+}
+
+.theme-vscode .message-bubble {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex: 1;
+}
+
+.theme-vscode .message-time {
+    display: none;
+}
+
+.theme-vscode .message-sender {
+    color: var(--vscode-function);
+    font-weight: normal;
+    margin-right: 0.5rem;
+    font-family: var(--font-family);
+}
+
+.theme-vscode .message-sender::before {
+    content: 'const ';
+    color: var(--vscode-keyword);
+}
+
+.theme-vscode .message-sender::after {
+    content: ' = ';
+    color: var(--text-color);
+}
+
+.theme-vscode .message-own .message-sender {
+    color: var(--vscode-variable);
+}
+
+.theme-vscode .message-own .message-sender::before {
+    content: 'let ';
+}
+
+.theme-vscode .message-text {
+    color: var(--vscode-string);
+    font-family: var(--font-family);
+    white-space: pre-wrap;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+
+.theme-vscode .message-text::before {
+    content: '"';
+    color: var(--vscode-string);
+}
+
+.theme-vscode .message-text::after {
+    content: '";';
+    color: var(--vscode-string);
+}
+
+/* Header estilo VS Code */
+.theme-vscode .chat-header {
+    display: none !important;
+}
+
+/* Input estilo VS Code */
+.theme-vscode .chat-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 250px;
+    right: 0;
+    background: var(--bg-dark) !important;
+    border-top: 1px solid var(--border-color);
+    padding: 0;
+    flex-shrink: 0;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.theme-vscode .chat-input-container::before {
+    content: '> ';
+    color: var(--vscode-comment);
+    padding-left: 10px;
+    font-family: var(--font-family);
+}
+
+.theme-vscode .input-group {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+.theme-vscode .form-control {
+    background: transparent !important;
+    color: var(--text-color) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: var(--font-family) !important;
+    font-size: 14px !important;
+    padding: 0 10px !important;
+    flex: 1;
+    height: 100%;
+    outline: none;
+}
+
+.theme-vscode .form-control:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.theme-vscode .btn-primary {
+    display: none !important;
+}
+
+.theme-vscode .btn-emoji {
+    display: none !important;
+}
+
+/* Imágenes en VS Code */
+.theme-vscode .image-link {
+    color: var(--vscode-comment);
+    font-style: italic;
+    font-family: var(--font-family);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.theme-vscode .image-link:hover {
+    color: var(--vscode-keyword);
+    text-decoration: underline;
+}
+
+.theme-vscode .image-expanded {
+    margin-top: 0.5rem;
+    margin-left: 50px;
+    display: block;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    background: var(--bg-dark);
+    max-width: 400px;
+}
+
+.theme-vscode .expanded-image {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* Scrollbar estilo VS Code */
+.theme-vscode .chat-messages::-webkit-scrollbar {
+    width: 10px;
+}
+
+.theme-vscode .chat-messages::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+.theme-vscode .chat-messages::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+.theme-vscode .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #424242;
+}
+
+/* Avatar oculto */
+.theme-vscode .message-avatar {
+    display: none !important;
+}
+
+.theme-vscode .online-indicator {
+    display: none !important;
+}
+
+.theme-vscode .typing-indicator-container {
+    position: fixed;
+    bottom: 30px;
+    left: 250px;
+    right: 0;
+    background: var(--bg-dark);
+    padding: 0.25rem 10px;
+    font-family: var(--font-family);
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    z-index: 99;
+}
+
+.theme-vscode .typing-indicator {
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste para que el body ocupe toda la pantalla */
+body.theme-vscode {
+    overflow: hidden;
+    height: 100vh;
+}
+
+body.theme-vscode #app {
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Ajustes para modo oscuro en todos los temas */

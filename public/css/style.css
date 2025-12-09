@@ -43,6 +43,17 @@ body.theme-terminal #app {
     overflow: hidden;
 }
 
+/* VS Code ocupa toda la pantalla */
+body.theme-vscode {
+    overflow: hidden;
+    height: 100vh;
+}
+
+body.theme-vscode #app {
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* Scrollbar personalizado */
 ::-webkit-scrollbar {
     width: 8px;
