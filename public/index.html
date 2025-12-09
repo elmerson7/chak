@@ -6,6 +6,7 @@
     <title>CHAK - Chat en Tiempo Real</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/themes.css" rel="stylesheet">
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -43,6 +44,14 @@
                         </small>
                     </div>
                 </div>
+                <button 
+                    @click="showConfigModal = true" 
+                    class="config-button"
+                    type="button"
+                    title="Configuración"
+                >
+                    ⚙️
+                </button>
             </div>
 
             <!-- Área de mensajes -->
@@ -122,8 +131,115 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal de Configuración -->
+        <div v-if="showConfigModal" class="modal fade config-modal show" style="display: block;" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">⚙️ Configuración</h5>
+                        <button type="button" class="btn-close" @click="showConfigModal = false"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Tema:</label>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-actual" 
+                                    value="actual"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-actual">
+                                    Actual (WhatsApp)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-documentos" 
+                                    value="documentos"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-documentos">
+                                    Editor de Documentos
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-terminal" 
+                                    value="terminal"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-terminal">
+                                    Terminal
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-codigo" 
+                                    value="codigo"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-codigo">
+                                    Código
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="theme" 
+                                    id="theme-dashboard" 
+                                    value="dashboard"
+                                    v-model="selectedTheme"
+                                >
+                                <label class="form-check-label" for="theme-dashboard">
+                                    Dashboard
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Modo:</label>
+                            <div class="form-check form-switch">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    id="modeToggle"
+                                    :checked="selectedMode === 'dark'"
+                                    @change="selectedMode = selectedMode === 'light' ? 'dark' : 'light'"
+                                >
+                                <label class="form-check-label" for="modeToggle">
+                                    <span v-if="selectedMode === 'light'">Modo Claro</span>
+                                    <span v-else>Modo Oscuro</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="showConfigModal = false">Cancelar</button>
+                        <button type="button" class="btn btn-primary" @click="applyTheme">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Backdrop del modal -->
+        <div v-if="showConfigModal" class="modal-backdrop fade show" @click="showConfigModal = false"></div>
     </div>
 
+    <script src="js/themeManager.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

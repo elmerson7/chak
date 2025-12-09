@@ -77,6 +77,9 @@ function useSocket() {
 
 createApp({
     data() {
+        // Obtener tema actual del themeManager
+        const currentTheme = window.themeManager ? window.themeManager.getCurrentTheme() : { theme: 'actual', mode: 'light' };
+        
         return {
             messages: [],
             currentUser: null,
@@ -89,6 +92,9 @@ createApp({
             typingTimeout: null,
             showEmojiPicker: false,
             onlineUsers: [], // Lista de usuarios en línea
+            showConfigModal: false,
+            selectedTheme: currentTheme.theme,
+            selectedMode: currentTheme.mode,
             commonEmojis: ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😤', '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓', '🤗', '🤔', '🤭', '🤫', '🤥', '😶', '😐', '😑', '😬', '🙄', '😯', '😦', '😧', '😮', '😲', '🥱', '😴', '🤤', '😪', '😵', '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠', '😈', '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '☠️', '👽', '👾', '🤖', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾']
         };
     },
@@ -114,6 +120,13 @@ createApp({
         
         // Configurar listeners
         this.setupListeners();
+        
+        // Cargar tema guardado
+        if (window.themeManager) {
+            const currentTheme = window.themeManager.getCurrentTheme();
+            this.selectedTheme = currentTheme.theme;
+            this.selectedMode = currentTheme.mode;
+        }
         
         // Focus en el input de mensaje
         this.$nextTick(() => {
@@ -316,6 +329,14 @@ createApp({
                 });
             }
             this.showEmojiPicker = false;
+        },
+        
+        applyTheme() {
+            if (window.themeManager) {
+                window.themeManager.setTheme(this.selectedTheme);
+                window.themeManager.setMode(this.selectedMode);
+            }
+            this.showConfigModal = false;
         }
     },
     
