@@ -1,10 +1,79 @@
-// Importar composables (nota: en producción usar build tools)
-// Por ahora los definimos aquí directamente o los cargamos como módulos
-
-const { useSocket } = window.useSocket || {};
-const { useChat } = window.useChat || {};
-
 const { createApp } = Vue;
+
+// Composable para gestión de Socket.IO
+function useSocket() {
+    let socket = null;
+    let isConnected = false;
+    
+    function connect() {
+        if (socket && isConnected) {
+            return socket;
+        }
+        
+        socket = io();
+        isConnected = true;
+        
+        socket.on('connect', () => {
+            console.log('Conectado al servidor');
+            isConnected = true;
+        });
+        
+        socket.on('disconnect', () => {
+            console.log('Desconectado del servidor');
+            isConnected = false;
+        });
+        
+        socket.on('error', (error) => {
+            console.error('Error de Socket.IO:', error);
+        });
+        
+        return socket;
+    }
+    
+    function disconnect() {
+        if (socket) {
+            socket.disconnect();
+            socket = null;
+            isConnected = false;
+        }
+    }
+    
+    function emit(event, data) {
+        if (socket && isConnected) {
+            socket.emit(event, data);
+        }
+    }
+    
+    function on(event, callback) {
+        if (socket) {
+            socket.on(event, callback);
+        }
+    }
+    
+    function off(event, callback) {
+        if (socket) {
+            if (callback) {
+                socket.off(event, callback);
+            } else {
+                socket.off(event);
+            }
+        }
+    }
+    
+    function getConnectionStatus() {
+        return isConnected && socket?.connected;
+    }
+    
+    return {
+        connect,
+        disconnect,
+        emit,
+        on,
+        off,
+        getConnectionStatus,
+        socket: () => socket
+    };
+}
 
 createApp({
     data() {
@@ -28,14 +97,16 @@ createApp({
         this.socketComposable = useSocket();
         this.socketComposable.connect();
         
-        // Inicializar Chat
-        this.chatComposable = useChat(this.socketComposable);
-        
         // Cargar alias guardado
-        const savedAlias = this.chatComposable.loadAliasFromStorage();
-        if (savedAlias) {
+        const savedAlias = localStorage.getItem('chak_alias');
+        const savedAvatar = localStorage.getItem('chak_avatar');
+        
+        if (savedAlias && savedAvatar) {
             this.aliasInput = savedAlias;
-            this.currentUser = this.chatComposable.currentUser;
+            this.currentUser = {
+                alias: savedAlias,
+                avatar_url: savedAvatar
+            };
             this.showUserModal = false;
             this.socketComposable.emit('setAlias', savedAlias);
         }
@@ -69,6 +140,10 @@ createApp({
                 };
                 this.showUserModal = false;
                 this.errorMessage = null;
+                
+                // Guardar en localStorage
+                localStorage.setItem('chak_alias', data.alias);
+                localStorage.setItem('chak_avatar', data.avatar_url);
             });
             
             // Mensajes previos

@@ -52,21 +52,38 @@ initDatabase()
         process.exit(1);
     });
 
-// Manejar cierre graceful
-process.on('SIGTERM', async () => {
-    logInfo('SIGTERM recibido, cerrando servidor...');
-    await closeDatabase();
-    server.close(() => {
-        logInfo('Servidor cerrado');
-        process.exit(0);
-    });
-});
+// Bandera para evitar múltiples cierres
+let isShuttingDown = false;
 
-process.on('SIGINT', async () => {
-    logInfo('SIGINT recibido, cerrando servidor...');
-    await closeDatabase();
-    server.close(() => {
-        logInfo('Servidor cerrado');
+// Función de cierre graceful
+async function gracefulShutdown(signal) {
+    if (isShuttingDown) {
+        return;
+    }
+    
+    isShuttingDown = true;
+    logInfo(`${signal} recibido, cerrando servidor...`);
+    
+    try {
+        // Cerrar Socket.IO
+        io.close();
+        
+        // Cerrar servidor HTTP
+        server.close(() => {
+            logInfo('Servidor HTTP cerrado');
+        });
+        
+        // Cerrar base de datos
+        await closeDatabase();
+        
+        logInfo('Cierre completado');
         process.exit(0);
-    });
-});
+    } catch (error) {
+        logError('Error durante el cierre', error);
+        process.exit(1);
+    }
+}
+
+// Manejar cierre graceful
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
