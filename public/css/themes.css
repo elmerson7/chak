@@ -511,14 +511,119 @@ body:not([class*="theme-"]) {
     margin: 0 !important;
 }
 
-/* Sidebar izquierdo simulado */
-.theme-vscode .chat-container::before {
-    content: '';
+/* Sidebar izquierdo VS Code */
+.theme-vscode .vscode-sidebar {
     width: 250px;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.theme-vscode .vscode-sidebar-header {
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.theme-vscode .vscode-sidebar-content {
+    flex: 1;
+    padding: 0.5rem 0;
+    overflow-y: auto;
+    font-family: var(--font-family);
+    font-size: 13px;
+}
+
+.theme-vscode .vscode-folder {
+    margin: 0;
+}
+
+.theme-vscode .vscode-folder-header {
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-color);
+}
+
+.theme-vscode .vscode-folder-header:hover {
+    background: var(--bg-dark);
+}
+
+.theme-vscode .vscode-folder-icon {
+    font-size: 16px;
+    width: 16px;
+    text-align: center;
+}
+
+.theme-vscode .vscode-folder-name {
+    color: var(--text-color);
+}
+
+.theme-vscode .vscode-folder-content {
+    margin-left: 1rem;
     display: block;
+}
+
+.theme-vscode .vscode-file {
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-light);
+}
+
+.theme-vscode .vscode-file:hover {
+    background: var(--bg-dark);
+}
+
+.theme-vscode .vscode-file-icon {
+    font-size: 16px;
+    width: 16px;
+    text-align: center;
+}
+
+.theme-vscode .vscode-file-name {
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.theme-vscode .vscode-file-name:hover {
+    color: var(--text-color);
+}
+
+/* Scrollbar del sidebar */
+.theme-vscode .vscode-sidebar-content::-webkit-scrollbar,
+.theme-vscode .vscode-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.theme-vscode .vscode-sidebar-content::-webkit-scrollbar-track,
+.theme-vscode .vscode-sidebar::-webkit-scrollbar-track {
+    background: var(--bg-sidebar);
+}
+
+.theme-vscode .vscode-sidebar-content::-webkit-scrollbar-thumb,
+.theme-vscode .vscode-sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+.theme-vscode .vscode-sidebar-content::-webkit-scrollbar-thumb:hover,
+.theme-vscode .vscode-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #424242;
 }
 
 /* Área principal del editor */
@@ -672,6 +777,10 @@ body:not([class*="theme-"]) {
     z-index: 100;
 }
 
+.theme-vscode .chat-container {
+    padding-left: 0 !important;
+}
+
 .theme-vscode .chat-input-container::before {
     content: '> ';
     color: var(--vscode-comment);
@@ -782,6 +891,11 @@ body:not([class*="theme-"]) {
     color: var(--text-muted);
     border-top: 1px solid var(--border-color);
     z-index: 99;
+}
+
+/* Ajustar el área de mensajes para que no se superponga con el sidebar */
+.theme-vscode .chat-messages {
+    margin-left: 0;
 }
 
 .theme-vscode .typing-indicator {

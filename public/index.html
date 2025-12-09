@@ -32,6 +32,130 @@
 
         <!-- Contenedor principal del chat -->
         <div v-if="!showUserModal" class="chat-container">
+            <!-- Sidebar VS Code -->
+            <div v-if="selectedTheme === 'vscode'" class="vscode-sidebar">
+                <div class="vscode-sidebar-header">
+                    <span class="vscode-sidebar-title">EXPLORER</span>
+                </div>
+                <div class="vscode-sidebar-content">
+                    <div class="vscode-folder">
+                        <div class="vscode-folder-header">
+                            <span class="vscode-folder-icon">📁</span>
+                            <span class="vscode-folder-name">CHAK</span>
+                        </div>
+                        <div class="vscode-folder-content">
+                            <div class="vscode-folder">
+                                <div class="vscode-folder-header">
+                                    <span class="vscode-folder-icon">📁</span>
+                                    <span class="vscode-folder-name">public</span>
+                                </div>
+                                <div class="vscode-folder-content">
+                                    <div class="vscode-file">
+                                        <span class="vscode-file-icon">📄</span>
+                                        <span class="vscode-file-name">index.html</span>
+                                    </div>
+                                    <div class="vscode-folder">
+                                        <div class="vscode-folder-header">
+                                            <span class="vscode-folder-icon">📁</span>
+                                            <span class="vscode-folder-name">css</span>
+                                        </div>
+                                        <div class="vscode-folder-content">
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">🎨</span>
+                                                <span class="vscode-file-name">style.css</span>
+                                            </div>
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">🎨</span>
+                                                <span class="vscode-file-name">themes.css</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vscode-folder">
+                                        <div class="vscode-folder-header">
+                                            <span class="vscode-folder-icon">📁</span>
+                                            <span class="vscode-folder-name">js</span>
+                                        </div>
+                                        <div class="vscode-folder-content">
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">📜</span>
+                                                <span class="vscode-file-name">app.js</span>
+                                            </div>
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">📜</span>
+                                                <span class="vscode-file-name">themeManager.js</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vscode-folder">
+                                <div class="vscode-folder-header">
+                                    <span class="vscode-folder-icon">📁</span>
+                                    <span class="vscode-folder-name">server</span>
+                                </div>
+                                <div class="vscode-folder-content">
+                                    <div class="vscode-folder">
+                                        <div class="vscode-folder-header">
+                                            <span class="vscode-folder-icon">📁</span>
+                                            <span class="vscode-folder-name">config</span>
+                                        </div>
+                                        <div class="vscode-folder-content">
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">⚙️</span>
+                                                <span class="vscode-file-name">database.js</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vscode-folder">
+                                        <div class="vscode-folder-header">
+                                            <span class="vscode-folder-icon">📁</span>
+                                            <span class="vscode-folder-name">handlers</span>
+                                        </div>
+                                        <div class="vscode-folder-content">
+                                            <div class="vscode-file">
+                                                <span class="vscode-file-icon">📜</span>
+                                                <span class="vscode-file-name">socketHandlers.js</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vscode-file">
+                                        <span class="vscode-file-icon">📜</span>
+                                        <span class="vscode-file-name">index.js</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vscode-folder">
+                                <div class="vscode-folder-header">
+                                    <span class="vscode-folder-icon">📁</span>
+                                    <span class="vscode-folder-name">database</span>
+                                </div>
+                                <div class="vscode-folder-content">
+                                    <div class="vscode-file">
+                                        <span class="vscode-file-icon">🗄️</span>
+                                        <span class="vscode-file-name">chak.db</span>
+                                    </div>
+                                    <div class="vscode-file">
+                                        <span class="vscode-file-icon">📜</span>
+                                        <span class="vscode-file-name">init.sql</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vscode-file">
+                                <span class="vscode-file-icon">📦</span>
+                                <span class="vscode-file-name">package.json</span>
+                            </div>
+                            <div class="vscode-file">
+                                <span class="vscode-file-icon">📝</span>
+                                <span class="vscode-file-name">README.md</span>
+                            </div>
+                            <div class="vscode-file">
+                                <span class="vscode-file-icon">🚫</span>
+                                <span class="vscode-file-name">.gitignore</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Header del chat -->
             <div class="chat-header">
                 <div class="d-flex align-items-center">
