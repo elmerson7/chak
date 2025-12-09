@@ -8,6 +8,9 @@ import { handleSocketError } from '../middleware/errorHandler.js';
 // Rate limiting: Map<userId, { messages: [timestamps] }>
 const userMessageCounts = new Map();
 
+// Usuarios en línea: Map<alias, socketId>
+const onlineUsers = new Map();
+
 /**
  * Formatea la hora actual en formato 12 horas
  * @returns {string} Hora formateada
@@ -90,10 +93,21 @@ export function setupSocketHandlers(io) {
                 // Inicializar rate limiting para este usuario
                 userMessageCounts.set(currentUserId, { messages: [] });
                 
+                // Agregar usuario a la lista de usuarios en línea
+                onlineUsers.set(currentUser.alias, socket.id);
+                
                 logInfo('Usuario conectado', {
                     alias: currentUser.alias,
                     userId: currentUserId,
                     socketId: socket.id
+                });
+                
+                // Enviar lista de usuarios en línea al nuevo usuario
+                socket.emit('usuariosEnLinea', Array.from(onlineUsers.keys()));
+                
+                // Notificar a todos los demás usuarios que este usuario se conectó
+                socket.broadcast.emit('usuarioConectado', {
+                    alias: currentUser.alias
                 });
                 
                 socket.emit('aliasEstablecido', {
@@ -244,15 +258,23 @@ export function setupSocketHandlers(io) {
         // Handler para desconexión
         socket.on('disconnect', async () => {
             try {
-                if (currentUserId) {
+                if (currentUserId && currentUser) {
                     await Promise.all([
                         MessageModel.closeSession(socket.id),
                         UserModel.updateLastSeen(currentUserId)
                     ]);
                     userMessageCounts.delete(currentUserId);
                     
+                    // Eliminar usuario de la lista de usuarios en línea
+                    onlineUsers.delete(currentUser.alias);
+                    
+                    // Notificar a todos los demás usuarios que este usuario se desconectó
+                    socket.broadcast.emit('usuarioDesconectado', {
+                        alias: currentUser.alias
+                    });
+                    
                     logInfo('Usuario desconectado', {
-                        alias: currentUser?.alias,
+                        alias: currentUser.alias,
                         userId: currentUserId,
                         socketId: socket.id
                     });

@@ -88,6 +88,7 @@ createApp({
             errorMessage: null,
             typingTimeout: null,
             showEmojiPicker: false,
+            onlineUsers: [], // Lista de usuarios en línea
             commonEmojis: ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😤', '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓', '🤗', '🤔', '🤭', '🤫', '🤥', '😶', '😐', '😑', '😬', '🙄', '😯', '😦', '😧', '😮', '😲', '🥱', '😴', '🤤', '😪', '😵', '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠', '😈', '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '☠️', '👽', '👾', '🤖', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾']
         };
     },
@@ -200,6 +201,25 @@ createApp({
             this.socketComposable.on('disconnect', () => {
                 this.isConnected = false;
             });
+            
+            // Usuarios en línea
+            this.socketComposable.on('usuariosEnLinea', (usuarios) => {
+                this.onlineUsers = usuarios;
+            });
+            
+            this.socketComposable.on('usuarioConectado', (data) => {
+                if (!this.onlineUsers.includes(data.alias)) {
+                    this.onlineUsers.push(data.alias);
+                }
+            });
+            
+            this.socketComposable.on('usuarioDesconectado', (data) => {
+                this.onlineUsers = this.onlineUsers.filter(alias => alias !== data.alias);
+            });
+        },
+        
+        isUserOnline(alias) {
+            return this.onlineUsers.includes(alias);
         },
         
         handleSetAlias() {

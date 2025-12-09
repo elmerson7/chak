@@ -57,7 +57,8 @@
                     </div>
                     <div class="message-bubble">
                         <div v-if="message.emisor !== currentUser?.alias" class="message-sender">
-                            {{ message.emisor }}
+                            <span class="user-name">{{ message.emisor }}</span>
+                            <span v-if="isUserOnline(message.emisor)" class="online-indicator" title="En línea"></span>
                         </div>
                         <div v-if="isImage(message)" class="message-image">
                             <img :src="message.contenido" alt="Imagen compartida">
