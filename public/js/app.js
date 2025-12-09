@@ -302,6 +302,18 @@ createApp({
             return `${hours}:${minutesStr} ${ampm}`;
         },
         
+        getTerminalTime(createdAt) {
+            if (!createdAt) return '';
+            const date = new Date(createdAt);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+            const hoursStr = hours < 10 ? '0' + hours : hours;
+            const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            const secondsStr = seconds < 10 ? '0' + seconds : seconds;
+            return `[${hoursStr}:${minutesStr}:${secondsStr}]`;
+        },
+        
         scrollToBottom() {
             const chatMessages = document.getElementById('chat-messages');
             if (chatMessages) {

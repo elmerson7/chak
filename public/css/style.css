@@ -32,6 +32,17 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Terminal ocupa toda la pantalla */
+body.theme-terminal {
+    overflow: hidden;
+    height: 100vh;
+}
+
+body.theme-terminal #app {
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* Scrollbar personalizado */
 ::-webkit-scrollbar {
     width: 8px;

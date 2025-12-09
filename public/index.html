@@ -60,23 +60,17 @@
                     v-for="(message, index) in messages" 
                     :key="index"
                     :class="['message-wrapper', message.emisor === currentUser?.alias ? 'message-own' : 'message-other']"
-                    :data-prompt="message.emisor === currentUser?.alias ? '#' : '$'"
                 >
                     <div v-if="message.emisor !== currentUser?.alias" class="message-avatar">
                         <img :src="message.avatar_url || 'https://robohash.org/default.png'" alt="Avatar">
                     </div>
                     <div class="message-bubble">
-                        <div v-if="message.emisor !== currentUser?.alias" class="message-sender">
-                            <span class="user-name">{{ message.emisor }}</span>
-                            <span v-if="isUserOnline(message.emisor)" class="online-indicator" title="En línea"></span>
-                        </div>
-                        <div v-if="isImage(message)" class="message-image">
+                        <span class="message-time">{{ getTerminalTime(message.created_at) }}</span>
+                        <span class="message-sender">&lt;{{ message.emisor }}&gt;</span>
+                        <span v-if="isImage(message)" class="message-image">
                             <img :src="message.contenido" alt="Imagen compartida">
-                        </div>
-                        <div v-else class="message-text">{{ message.contenido }}</div>
-                        <div class="message-time">
-                            {{ getMessageTime(message.created_at) }}
-                        </div>
+                        </span>
+                        <span v-else class="message-text"> {{ message.contenido }}</span>
                     </div>
                 </div>
             </div>
