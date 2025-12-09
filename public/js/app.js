@@ -95,6 +95,7 @@ createApp({
             showConfigModal: false,
             selectedTheme: currentTheme.theme,
             selectedMode: currentTheme.mode,
+            expandedImages: {},
             commonEmojis: ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😤', '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓', '🤗', '🤔', '🤭', '🤫', '🤥', '😶', '😐', '😑', '😬', '🙄', '😯', '😦', '😧', '😮', '😲', '🥱', '😴', '🤤', '😪', '😵', '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠', '😈', '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '☠️', '👽', '👾', '🤖', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾']
         };
     },
@@ -353,6 +354,24 @@ createApp({
                 window.themeManager.setMode(this.selectedMode);
             }
             this.showConfigModal = false;
+        },
+        
+        toggleImagePreview(index) {
+            // Toggle la imagen expandida en el mensaje específico
+            if (this.expandedImages[index]) {
+                // Si ya está expandida, colapsarla
+                this.expandedImages = { ...this.expandedImages, [index]: false };
+            } else {
+                // Expandir la imagen
+                this.expandedImages = { ...this.expandedImages, [index]: true };
+                // Scroll para ver la imagen si se expande
+                this.$nextTick(() => {
+                    const messageElement = document.querySelector(`.message-wrapper:nth-child(${index + 1})`);
+                    if (messageElement) {
+                        messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            }
         }
     },
     

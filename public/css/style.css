@@ -468,6 +468,69 @@ body.theme-terminal #app {
     transform: scale(1.2);
 }
 
+/* Preview de imagen estilo WhatsApp */
+.image-preview-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-dark);
+    border-top: 1px solid var(--border-color);
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+
+.image-preview-header {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.btn-close-preview {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+}
+
+.btn-close-preview:hover {
+    color: var(--primary-color);
+    opacity: 0.8;
+}
+
+.image-preview-content {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: calc(50vh - 60px);
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
 .chat-input-container .form-control {
     flex: 1;
     border: 1px solid var(--border-color);

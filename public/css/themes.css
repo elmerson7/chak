@@ -133,7 +133,7 @@ body:not([class*="theme-"]) {
 .theme-terminal .chat-messages {
     background: var(--bg-color) !important;
     padding: 0.25rem 0.5rem;
-    font-family: var(--font-family);
+    font-family: var(--font-family), 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', sans-serif;
     font-size: 0.85rem;
     line-height: 1.3;
     flex: 1;
@@ -180,11 +180,13 @@ body:not([class*="theme-"]) {
 
 .theme-terminal .message-text {
     color: var(--terminal-text-color);
-    font-family: var(--font-family);
+    font-family: var(--font-family), 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', sans-serif;
     white-space: pre-wrap;
     margin: 0;
     padding: 0;
     display: inline;
+    font-size: 1em;
+    line-height: 1.3;
 }
 
 .theme-terminal .message-time {
@@ -204,18 +206,40 @@ body:not([class*="theme-"]) {
     color: var(--terminal-text-color);
 }
 
-/* Formato para imágenes en terminal */
-.theme-terminal .message-image {
-    display: inline-block;
-    margin: 0.25rem 0;
-    max-width: 300px;
-    border: 1px solid var(--border-color);
+/* Formato para imágenes en terminal - texto inline clickeable */
+.theme-terminal .image-link {
+    color: var(--terminal-prompt-color);
+    font-style: italic;
+    margin-left: 0.25rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--terminal-timestamp-color);
+    text-underline-offset: 2px;
+    display: inline;
 }
 
-.theme-terminal .message-image img {
-    max-width: 100%;
-    height: auto;
+.theme-terminal .image-link:hover {
+    color: var(--terminal-prompt-own);
+    text-decoration-color: var(--terminal-prompt-own);
+}
+
+/* Imagen expandida inline - aparece en nueva línea debajo del texto */
+.theme-terminal .image-expanded {
+    margin-top: 0.5rem;
+    margin-left: 0;
     display: block;
+    border: 1px solid var(--border-color);
+    padding: 0.25rem;
+    background: var(--bg-dark);
+}
+
+.theme-terminal .expanded-image {
+    max-width: 300px;
+    max-height: 200px;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 /* Input de terminal */
@@ -233,7 +257,21 @@ body:not([class*="theme-"]) {
 }
 
 .theme-terminal .btn-emoji {
-    display: none !important;
+    display: flex !important;
+    background: var(--bg-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.85rem !important;
+}
+
+.theme-terminal .btn-emoji:hover {
+    background: var(--bg-color) !important;
+    border-color: var(--terminal-prompt-color) !important;
+    transform: none !important;
 }
 
 .theme-terminal .form-control {
@@ -292,6 +330,111 @@ body:not([class*="theme-"]) {
 
 .theme-terminal .error-banner {
     display: none !important;
+}
+
+/* Emoji picker en terminal */
+.theme-terminal .emoji-picker-container {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    margin-bottom: 0.25rem;
+    z-index: 100;
+}
+
+.theme-terminal .emoji-picker {
+    background: var(--bg-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.theme-terminal .emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.25rem;
+}
+
+.theme-terminal .emoji-item {
+    font-size: 1.2rem !important;
+    padding: 0.25rem !important;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', sans-serif !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 0 !important;
+    transition: background-color 0.1s ease;
+}
+
+.theme-terminal .emoji-item:hover {
+    background: var(--bg-color) !important;
+    border-color: var(--terminal-prompt-color) !important;
+}
+
+/* Preview de imagen estilo WhatsApp en terminal */
+.theme-terminal .image-preview-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-dark);
+    border-top: 1px solid var(--border-color);
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+
+.theme-terminal .image-preview-header {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.theme-terminal .btn-close-preview {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    font-family: var(--font-family);
+}
+
+.theme-terminal .btn-close-preview:hover {
+    color: var(--terminal-prompt-color);
+}
+
+.theme-terminal .image-preview-content {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.theme-terminal .preview-image {
+    max-width: 100%;
+    max-height: calc(50vh - 60px);
+    object-fit: contain;
+    border: 1px solid var(--border-color);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 /* Scrollbar estilo terminal */

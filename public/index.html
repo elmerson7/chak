@@ -67,8 +67,11 @@
                     <div class="message-bubble">
                         <span class="message-time">{{ getTerminalTime(message.created_at) }}</span>
                         <span class="message-sender">&lt;{{ message.emisor }}&gt;</span>
-                        <span v-if="isImage(message)" class="message-image">
-                            <img :src="message.contenido" alt="Imagen compartida">
+                        <span v-if="isImage(message)" class="message-text">
+                            <span class="image-link" @click="toggleImagePreview(index)">[image]</span>
+                            <div v-if="expandedImages[index]" class="image-expanded">
+                                <img :src="message.contenido" alt="Imagen compartida" class="expanded-image">
+                            </div>
                         </span>
                         <span v-else class="message-text"> {{ message.contenido }}</span>
                     </div>
@@ -79,6 +82,16 @@
             <div v-if="typingUsers.length > 0" class="typing-indicator-container">
                 <div class="typing-indicator">
                     <span>{{ typingUsers.join(', ') }} {{ typingUsers.length === 1 ? 'está escribiendo' : 'están escribiendo' }}...</span>
+                </div>
+            </div>
+
+            <!-- Preview de imagen (estilo WhatsApp) -->
+            <div v-if="previewImageSrc" class="image-preview-container">
+                <div class="image-preview-header">
+                    <button @click="closeImagePreview" class="btn-close-preview" title="Cerrar">×</button>
+                </div>
+                <div class="image-preview-content">
+                    <img :src="previewImageSrc" alt="Vista previa" class="preview-image">
                 </div>
             </div>
 
